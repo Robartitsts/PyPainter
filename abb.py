@@ -1,5 +1,5 @@
 import serial
-
+import time
 class ABBRunner():
 
 	def __init__(self, width, height):
@@ -14,6 +14,57 @@ class ABBRunner():
 
 		msg = "COORD:X:" + str(x) + ",Y:" + str(y) + ";"
 		return self.sendSerial(msg)
+
+	def sendCoordB(self, x, y):
+		if not self.connected:
+			return False
+
+		msg = "COORDB:X:" + str(x) + ",Y:" + str(y) + ";"
+		return self.sendSerial(msg)
+
+	def sendCoordP(self, x, y, i):
+		if not self.connected:
+			return False
+
+		msg = "COORDP:X:" + str(x) + ",Y:" + str(y) + ",I:" +str(i) +";"
+		return self.sendSerial(msg)
+
+	def sendCoordQ(self, x1, y1, x2, y2 ,x3, y3):
+		if not self.connected:
+			return False
+
+		msg = "COORDQ:X:" + str(x1) + ",Y:" + str(y1) + "#" + "X:" + str(x2) + ",Y:" + str(y2) + "#" + "X:" + str(x3) + ",Y:" + str(y3) + ";"
+
+		return self.sendSerial(msg)
+
+	def followCurve(self):
+		if not self.connected:
+			return False
+
+		msg = "GOPATH;"
+		return self.sendSerial(msg)
+
+	def griptoggle(self):
+		''' By default toggles if '''
+		msg = "GRIP;"
+		return self.sendSerial(msg)
+
+	def grip(self, toSqueeze):
+		if toSqueeze:
+			msg = "GRIPV" + str(toSqueeze)+ ";"
+		return self.sendSerial(msg)
+
+	def getPaint(self, cup = 0):
+		if not self.connected:
+			return False
+
+		msg = "LATHERUP:" + str(cup) + ";"
+		return self.sendSerial(msg)
+
+	def moveToSafe(self,):
+		if not self.connected:
+			return False
+		return self.sendSerial("MOVETOSAFE;")
 
 	def next(self):
 		if not self.connected:
@@ -39,6 +90,7 @@ class ABBRunner():
 		# Wait for robot to be ready
 		if not self.waitRobotReady():
 			return False
+		# self.ser.timeout = None
 
 		msg = "SIZE:X:" + str(self.width) + ",Y:" + str(self.height) + ";"
 		return self.sendSerial(msg)
@@ -78,4 +130,9 @@ class ABBRunner():
 
 		# TODO: Try/catch?
 		self.ser.write(msg)
+		resp = self.ser.read(1)
+		# print("received command:",resp)
+		while resp == '':
+			time.sleep(0.1)
+			resp = self.ser.read(1)
 		return True

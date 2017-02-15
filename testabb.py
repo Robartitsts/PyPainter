@@ -2,7 +2,7 @@ import abb
 import time
 import code
 
-rob = abb.ABBRunner(2400,2480)
+rob = abb.ABBRunner(2530,2530)
 rob.connectToSerial("COM39")
 print(rob.sendCanvasInfo())
 time.sleep(2)
