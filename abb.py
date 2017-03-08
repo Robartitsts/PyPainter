@@ -66,6 +66,13 @@ class ABBRunner():
 			return False
 		return self.sendSerial("MOVETOSAFE;")
 
+	def moveUpsideDown(self,):
+		if not self.connected:
+			return False
+		return self.sendSerial("MOVEUPS;")
+
+
+
 	def next(self):
 		if not self.connected:
 			return False
@@ -107,7 +114,7 @@ class ABBRunner():
 				print(code)
 				return True
 
-		return false
+		return False
 
 	def abort(self,):
 		self.ser.close()

@@ -27,6 +27,7 @@ time.sleep(2)
 rob.getPaint(0)
 time.sleep(2)
 rob.moveToSafe()
+# rob.moveUpsideDown()
 
 # rob.followCurve()
 
@@ -35,3 +36,26 @@ code.interact(local=locals())
 rob.abort()
 
 
+
+
+  # if(left < 8){
+  #   tempx = roby - int(round(sin((theta + 90)*convert)));
+  #   tempy = robx + int(round(cos((theta + 90)*convert)));
+  #   Serial.print(tempx);
+  #   Serial.print(tempy);
+  #   Serial.print("\n");
+  # }
+  # if(back< 8){
+  #   tempx = roby - int(round(sin((theta + 180)*convert)));
+  #   tempy = robx + int(round(cos((theta + 180)*convert)));
+  #       Serial.print(tempx);
+  #   Serial.print(tempy);
+  #   Serial.print("\n");
+  # }
+  # if(right < 8){
+  #   tempx = roby - int(round(sin((theta + 270)*convert)));
+  #   tempy = robx + int(round(cos((theta + 270)*convert)));
+  #       Serial.print(tempx);
+  #   Serial.print(tempy);
+  #   Serial.print("\n");
+  # }
