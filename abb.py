@@ -61,6 +61,13 @@ class ABBRunner():
 		msg = "LATHERUP:" + str(cup) + ";"
 		return self.sendSerial(msg)
 
+	def mixPaint(self, cup = 0):
+		if not self.connected:
+			return False
+
+		msg = "MIXPAINT:" + str(cup) + ";"
+		return self.sendSerial(msg)
+
 	def moveToSafe(self,):
 		if not self.connected:
 			return False
@@ -161,7 +168,7 @@ class ABBRunner():
 			return False
 
 		# TODO: Try/catch?
-		self.ser.write(msg)
+		self.ser.write(msg.encode())
 		resp = self.ser.read(1)
 		# print("received command:",resp)
 		while resp == '':
